@@ -1,6 +1,6 @@
 Revision history for Linux-SysInfo
 
-0.02	2007-04-18 10:15 UTC
+0.03	2007-04-18 10:25 UTC
 	+ Fix : Load average raw values have to be shifted on a platform
 	        dependant way. They are now correctly reported.
 	+ Fix : Missing META.yml
