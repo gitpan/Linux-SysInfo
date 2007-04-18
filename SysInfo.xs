@@ -2,8 +2,8 @@
 #include "perl.h"
 #include "XSUB.h"
 
-#include <linux/version.h>
-#include <sys/sysinfo.h>
+#include <linux/version.h> /* LINUX_VERSION_CODE, KERNEL_VERSION() */
+#include <sys/sysinfo.h>   /* <struct sysinfo>, sysinfo(), SI_LOAD_SHIFT */
 
 #if ((defined(__i386__) || defined(__x86_64__)) && (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 3, 23))) || (LINUX_VERSION_CODE >= KERNEL_VERSION(2, 3, 48))
 # define SYSINFO_EXTENDED 1
@@ -65,19 +65,24 @@ SV *
 sysinfo()
 PREINIT:
  struct sysinfo si;
+ NV l;
  HV* h;
 CODE:
  if (sysinfo(&si) == -1) {
   XSRETURN_UNDEF;
  }
 
- h = newHV();
-/* sv_2mortal((SV *) h); */
+ h = newHV(); /* mortalized in RETVAL */
 
  SYSINFO_KEY_STORE(h, key_uptime,    newSViv(si.uptime));
- SYSINFO_KEY_STORE(h, key_load1,     newSVuv(si.loads[0]));
- SYSINFO_KEY_STORE(h, key_load5,     newSVuv(si.loads[1]));
- SYSINFO_KEY_STORE(h, key_load15,    newSVuv(si.loads[2]));
+
+ l = ((NV) si.loads[0]) / ((NV) (((U32) 1) << ((U32) SI_LOAD_SHIFT)));
+ SYSINFO_KEY_STORE(h, key_load1,     newSVnv(l));
+ l = ((NV) si.loads[1]) / ((NV) (((U32) 1) << ((U32) SI_LOAD_SHIFT)));
+ SYSINFO_KEY_STORE(h, key_load5,     newSVnv(l));
+ l = ((NV) si.loads[2]) / ((NV) (((U32) 1) << ((U32) SI_LOAD_SHIFT)));
+ SYSINFO_KEY_STORE(h, key_load15,    newSVnv(l));
+
  SYSINFO_KEY_STORE(h, key_totalram,  newSVuv(si.totalram));
  SYSINFO_KEY_STORE(h, key_freeram,   newSVuv(si.freeram));
  SYSINFO_KEY_STORE(h, key_sharedram, newSVuv(si.sharedram));
@@ -98,6 +103,6 @@ OUTPUT:
 SV *
 LS_HAS_EXTENDED()
 CODE:
- RETVAL = newSViv(SYSINFO_EXTENDED);
+ RETVAL = newSViv(SYSINFO_EXTENDED); /* mortalized in RETVAL */
 OUTPUT:
  RETVAL

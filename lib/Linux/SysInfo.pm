@@ -9,11 +9,11 @@ Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 =head1 VERSION
 
-Version 0.01
+Version 0.02
 
 =cut
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 =head1 SYNOPSIS
 
@@ -111,6 +111,12 @@ Memory unit size in bytes.
 =head2 LS_HAS_EXTENDED
 
 This constant is set to 1 if your kernel supports the three extended fields C<totalhigh>, C<freehigh> and C<mem_unit> ; and to 0 otherwise.
+
+=head1 BINARY COMPATIBILITY
+
+If you upgrade your kernel to a greater version than 2.3.23 on i386 or 2.3.48 on any other platform, you will need to rebuild the module to access the extended fields.
+
+Moreover, since the perl hash function has changed after the 5.6 version, you will also need to recompile the module if you upgrade your perl from a version earlier than 5.6.
 
 =head1 SEE ALSO
 
