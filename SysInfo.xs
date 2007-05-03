@@ -43,6 +43,10 @@ PROTOTYPES: ENABLE
 
 BOOT:
 {
+ HV *stash;
+ stash = gv_stashpv("Linux::SysInfo", TRUE);
+ newCONSTSUB(stash, "LS_HAS_EXTENDED", newSViv(SYSINFO_EXTENDED));
+
  SYSINFO_KEY_SET_HASH(key_uptime);
  SYSINFO_KEY_SET_HASH(key_load1);
  SYSINFO_KEY_SET_HASH(key_load5);
@@ -66,7 +70,7 @@ sysinfo()
 PREINIT:
  struct sysinfo si;
  NV l;
- HV* h;
+ HV *h;
 CODE:
  if (sysinfo(&si) == -1) {
   XSRETURN_UNDEF;
@@ -100,9 +104,3 @@ CODE:
 OUTPUT:
  RETVAL
 
-SV *
-LS_HAS_EXTENDED()
-CODE:
- RETVAL = newSViv(SYSINFO_EXTENDED); /* mortalized in RETVAL */
-OUTPUT:
- RETVAL

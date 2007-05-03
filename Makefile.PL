@@ -5,6 +5,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME                => 'Linux::SysInfo',
     AUTHOR              => 'Vincent Pit <perl@profvince.com>',
+    LICENSE             => 'perl',
     VERSION_FROM        => 'lib/Linux/SysInfo.pm',
     ABSTRACT_FROM       => 'lib/Linux/SysInfo.pm',
     PL_FILES            => {},

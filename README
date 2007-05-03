@@ -2,7 +2,7 @@ NAME
     Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 VERSION
-    Version 0.03
+    Version 0.04
 
 SYNOPSIS
         use Linux::SysInfo qw/sysinfo/;

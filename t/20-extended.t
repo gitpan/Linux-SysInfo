@@ -1,12 +1,13 @@
 #!perl -T
 
-use Test::More tests => 4;
+use Test::More;
 
 use Linux::SysInfo qw/sysinfo LS_HAS_EXTENDED/;
 
-SKIP:
-{
- skip 'Your kernel does not support extended sysinfo fields', 4 unless LS_HAS_EXTENDED;
+unless (LS_HAS_EXTENDED) {
+ plan skip_all => 'your kernel does not support extended sysinfo fields';
+} else {
+ plan tests => 4;
 
  my $si = sysinfo;
  ok(defined $si);

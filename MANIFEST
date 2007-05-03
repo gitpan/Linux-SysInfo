@@ -5,6 +5,7 @@ Makefile.PL
 README
 SysInfo.xs
 lib/Linux/SysInfo.pm
+samples/sysinfo.pl
 t/00-load.t
 t/10-standard.t
 t/20-extended.t
