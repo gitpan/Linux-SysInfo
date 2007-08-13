@@ -9,11 +9,11 @@ Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 =head1 VERSION
 
-Version 0.04
+Version 0.05
 
 =cut
 
-our $VERSION = '0.04';
+our $VERSION = '0.05';
 
 =head1 SYNOPSIS
 
@@ -131,6 +131,8 @@ L<BSD::getloadavg> : Wrapper to the C<getloadavg(3)> BSD system call.
 =head1 AUTHOR
 
 Vincent Pit, C<< <perl at profvince.com> >>
+
+You can contact me by mail or on #perl @ FreeNode (Prof_Vince).
 
 =head1 BUGS
 

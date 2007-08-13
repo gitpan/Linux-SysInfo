@@ -2,7 +2,7 @@ NAME
     Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 VERSION
-    Version 0.04
+    Version 0.05
 
 SYNOPSIS
         use Linux::SysInfo qw/sysinfo/;
@@ -93,6 +93,8 @@ SEE ALSO
 
 AUTHOR
     Vincent Pit, "<perl at profvince.com>"
+
+    You can contact me by mail or on #perl @ FreeNode (Prof_Vince).
 
 BUGS
     Please report any bugs or feature requests to "bug-linux-sysinfo at

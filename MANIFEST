@@ -10,5 +10,6 @@ t/00-load.t
 t/10-standard.t
 t/20-extended.t
 t/boilerplate.t
+t/kwalitee.t
 t/pod-coverage.t
 t/pod.t

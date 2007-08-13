@@ -1,5 +1,12 @@
 Revision history for Linux-SysInfo
 
+0.05    2007-08-13 11:10 UTC
+        + Add : Kwalitee test.
+	+ Chg : Makefile.PL overhaul.
+        + Chg : Hash keys are now shared. This new implementation doesn't like
+                5.9.3, but seems to be somehow ok with 5.9.5. If you're using
+                5.9.3, either upgrade or keep with the precedent module version.
+
 0.04	2007-05-03 09:35 UTC
 	+ Add : The samples/sysinfo.pl sample script.
 	+ Chg : Declare LS_HAS_EXTENDED with newCONSTSUB.
