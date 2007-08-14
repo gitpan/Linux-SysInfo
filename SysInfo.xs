@@ -23,23 +23,26 @@
 /* --- Keys ---------------------------------------------------------------- */
 
 #define LS_KEY(K)            (ls_key_##K##_sv)
-#if PERL_API_REVISION >= 5 && PERL_API_VERSION >= 9 && PERL_API_SUBVERSION >= 5
-/* From 5.9.5, newSVpvn_share doesn't seem to fill the UV field of the key SV
- * properly (the SV actually doesn't even look like a UV). That's why we have
- * to keep the hash in another variable. */
+#if PERL_REVISION <= 4 || (PERL_REVISION == 5 && PERL_VERSION <= 6)
+/* newSVpvn_share doesn't exist in perl-5.6.x */
 # define LS_HASH(K)          (ls_key_##K##_hash)
-# define LS_KEY_DECLARE(K)   STATIC SV *LS_KEY(K) = NULL; \
+# define LS_KEY_DECLARE(K)   STATIC const char LS_KEY(K)[] = #K; \
                              STATIC U32 LS_HASH(K) = 0
-# define LS_KEY_DEFINE(K)    PERL_HASH(LS_HASH(K), #K, sizeof(#K)-1); \
-                             LS_KEY(K) = newSVpvn_share(#K, sizeof(#K)-1, \
-			                                LS_HASH(K));
-# define LS_KEY_STORE(H,K,V) hv_store_ent((H), LS_KEY(K), (V), LS_HASH(K))
+# define LS_KEY_DEFINE(K)    PERL_HASH(LS_HASH(K), LS_KEY(K), sizeof(#K)-1)
+# define LS_KEY_STORE(H,K,V) hv_store((H), LS_KEY(K), sizeof(#K)-1, \
+                                      (V), LS_HASH(K))
 #else
-/* This won't work for 5.9.3 (5.9.4 ?), neither will the previous one.
- * If you want to bleed, upgrade your blead! */
+# if PERL_REVISION >= 5 && PERL_VERSION >= 9 && PERL_SUBVERSION >= 3
+/* From perl-5.9.3 (#24802), the key is only a SVt_PV and one can get the hash
+ * value with the SvSHARED_HASH() macro. */
+#  define LS_HASH(K)         SvSHARED_HASH(LS_KEY(K))
+# else
+/* Before, the key was a SVt_PVIV and the hash was stored in the UV field. */
+#  define LS_HASH(K)         SvUVX(LS_KEY(K))
+# endif
 # define LS_KEY_DECLARE(K)   STATIC SV *LS_KEY(K) = NULL
 # define LS_KEY_DEFINE(K)    LS_KEY(K) = newSVpvn_share(#K, sizeof(#K)-1, 0)
-# define LS_KEY_STORE(H,K,V) hv_store_ent((H), LS_KEY(K), (V), SvUVX(LS_KEY(K)))
+# define LS_KEY_STORE(H,K,V) hv_store_ent((H), LS_KEY(K), (V), LS_HASH(K))
 #endif
 
 LS_KEY_DECLARE(uptime);
