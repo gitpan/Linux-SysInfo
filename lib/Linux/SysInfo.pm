@@ -9,11 +9,11 @@ Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 =head1 VERSION
 
-Version 0.06
+Version 0.07
 
 =cut
 
-our $VERSION = '0.06';
+our $VERSION = '0.07';
 
 =head1 SYNOPSIS
 
@@ -38,9 +38,9 @@ our @EXPORT_OK = qw/sysinfo LS_HAS_EXTENDED/;
 
 our %EXPORT_TAGS = ( 'all' => [ @EXPORT_OK ] );
 
-require XSLoader;
+use XSLoader;
 
-XSLoader::load('Linux::SysInfo', $VERSION);
+XSLoader::load 'Linux::SysInfo', $VERSION;
 
 =head1 FUNCTIONS
 

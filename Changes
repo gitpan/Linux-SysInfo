@@ -1,5 +1,9 @@
 Revision history for Linux-SysInfo
 
+0.07    2007-08-28 12:30 UTC
+        + Chg : s/require (XSLoader)/use $1/.
+        + Fix : Tests are now strict.
+
 0.06    2007-08-14 18:40 UTC
         + Fix : Building for perl-5.6.x and perl-5.9.{3,4}.
 

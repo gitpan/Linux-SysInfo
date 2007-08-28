@@ -1,5 +1,8 @@
 #!perl -T
 
+use strict;
+use warnings;
+
 use Test::More tests => 12 * 5;
 
 use Linux::SysInfo qw/sysinfo/;

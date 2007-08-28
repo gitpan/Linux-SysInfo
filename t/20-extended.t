@@ -1,5 +1,8 @@
 #!perl -T
 
+use strict;
+use warnings;
+
 use Test::More;
 
 use Linux::SysInfo qw/sysinfo LS_HAS_EXTENDED/;
