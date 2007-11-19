@@ -3,6 +3,8 @@
 use strict;
 use warnings;
 
+use lib qw{blib/lib blib/arch};
+
 use Linux::SysInfo qw/sysinfo LS_HAS_EXTENDED/;
 
 my $si = sysinfo;

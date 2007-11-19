@@ -32,7 +32,7 @@
 # define LS_KEY_STORE(H,K,V) hv_store((H), LS_KEY(K), sizeof(#K)-1, \
                                       (V), LS_HASH(K))
 #else
-# if PERL_REVISION >= 5 && PERL_VERSION >= 9 && PERL_SUBVERSION >= 3
+# if PERL_REVISION > 5 || (PERL_REVISION == 5 && (PERL_VERSION > 9 || (PERL_VERSION == 9 && PERL_SUBVERSION >= 3)))
 /* From perl-5.9.3 (#24802), the key is only a SVt_PV and one can get the hash
  * value with the SvSHARED_HASH() macro. */
 #  define LS_HASH(K)         SvSHARED_HASH(LS_KEY(K))

@@ -9,11 +9,11 @@ Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 =head1 VERSION
 
-Version 0.07
+Version 0.08
 
 =cut
 
-our $VERSION = '0.07';
+our $VERSION = '0.08';
 
 =head1 SYNOPSIS
 
