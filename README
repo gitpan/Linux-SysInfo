@@ -2,7 +2,7 @@ NAME
     Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 VERSION
-    Version 0.08
+    Version 0.09
 
 SYNOPSIS
         use Linux::SysInfo qw/sysinfo/;
@@ -16,9 +16,10 @@ DESCRIPTION
     and processes running. Other systems have also this system call (e.g.
     Solaris), but in most cases the returned information is different.
 
-EXPORT
-    The only function of this module, "sysinfo", and the constant
-    "LS_HAS_EXTENDED" are only exported on request.
+CONSTANTS
+  "LS_HAS_EXTENDED"
+    This constant is set to 1 if your kernel supports the three extended
+    fields "totalhigh", "freehigh" and "mem_unit" ; and to 0 otherwise.
 
 FUNCTIONS
   "sysinfo"
@@ -67,10 +68,10 @@ FUNCTIONS
     "mem_unit"
         Memory unit size in bytes.
 
-CONSTANTS
-  LS_HAS_EXTENDED
-    This constant is set to 1 if your kernel supports the three extended
-    fields "totalhigh", "freehigh" and "mem_unit" ; and to 0 otherwise.
+EXPORT
+    The only function of this module, "sysinfo", and the constant
+    "LS_HAS_EXTENDED" are only exported on request. Functions are also
+    exported by the ":funcs" tag, and constants by ":consts".
 
 BINARY COMPATIBILITY
     If you upgrade your kernel to a greater version than 2.3.23 on i386 or
@@ -92,9 +93,10 @@ SEE ALSO
     BSD::getloadavg : Wrapper to the getloadavg(3) BSD system call.
 
 AUTHOR
-    Vincent Pit, "<perl at profvince.com>"
+    Vincent Pit, "<perl at profvince.com>", <http://www.profvince.com>.
 
-    You can contact me by mail or on #perl @ FreeNode (Prof_Vince).
+    You can contact me by mail or on #perl @ FreeNode (vincent or
+    Prof_Vince).
 
 BUGS
     Please report any bugs or feature requests to "bug-linux-sysinfo at
@@ -109,7 +111,7 @@ SUPPORT
         perldoc Linux::SysInfo
 
 COPYRIGHT & LICENSE
-    Copyright 2007 Vincent Pit, all rights reserved.
+    Copyright 2007-2008 Vincent Pit, all rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

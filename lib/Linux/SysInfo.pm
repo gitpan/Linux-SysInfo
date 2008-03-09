@@ -1,7 +1,7 @@
 package Linux::SysInfo;
 
-use warnings;
 use strict;
+use warnings;
 
 =head1 NAME
 
@@ -9,11 +9,14 @@ Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 =head1 VERSION
 
-Version 0.08
+Version 0.09
 
 =cut
 
-our $VERSION = '0.08';
+our $VERSION;
+BEGIN {
+ $VERSION = '0.09';
+}
 
 =head1 SYNOPSIS
 
@@ -26,23 +29,20 @@ our $VERSION = '0.08';
 
 This module is a wrapper around the sysinfo(2) Linux system call. It gives information about the current uptime, load average, memory usage and processes running. Other systems have also this system call (e.g. Solaris), but in most cases the returned information is different.
 
-=head1 EXPORT
+=head1 CONSTANTS
 
-The only function of this module, C<sysinfo>, and the constant C<LS_HAS_EXTENDED> are only exported on request.
+=head2 C<LS_HAS_EXTENDED>
+
+This constant is set to 1 if your kernel supports the three extended fields C<totalhigh>, C<freehigh> and C<mem_unit> ; and to 0 otherwise.
+
+=head1 FUNCTIONS
 
 =cut
 
-use base qw/Exporter/;
-
-our @EXPORT_OK = qw/sysinfo LS_HAS_EXTENDED/;
-
-our %EXPORT_TAGS = ( 'all' => [ @EXPORT_OK ] );
-
-use XSLoader;
-
-XSLoader::load 'Linux::SysInfo', $VERSION;
-
-=head1 FUNCTIONS
+BEGIN {
+ require XSLoader;
+ XSLoader::load(__PACKAGE__, $VERSION);
+}
 
 =head2 C<sysinfo>
 
@@ -106,11 +106,21 @@ Memory unit size in bytes.
 
 =back
 
-=head1 CONSTANTS
+=head1 EXPORT
 
-=head2 LS_HAS_EXTENDED
+The only function of this module, C<sysinfo>, and the constant C<LS_HAS_EXTENDED> are only exported on request. Functions are also exported by the C<:funcs> tag, and constants by C<:consts>.
 
-This constant is set to 1 if your kernel supports the three extended fields C<totalhigh>, C<freehigh> and C<mem_unit> ; and to 0 otherwise.
+=cut
+
+use base qw/Exporter/;
+
+our @EXPORT         = ();
+our %EXPORT_TAGS    = (
+ 'funcs'  => [ qw/sysinfo/ ],
+ 'consts' => [ qw/LS_HAS_EXTENDED/ ]
+);
+our @EXPORT_OK      = map { @$_ } values %EXPORT_TAGS;
+$EXPORT_TAGS{'all'} = [ @EXPORT_OK ];
 
 =head1 BINARY COMPATIBILITY
 
@@ -130,9 +140,9 @@ L<BSD::getloadavg> : Wrapper to the C<getloadavg(3)> BSD system call.
 
 =head1 AUTHOR
 
-Vincent Pit, C<< <perl at profvince.com> >>
+Vincent Pit, C<< <perl at profvince.com> >>, L<http://www.profvince.com>.
 
-You can contact me by mail or on #perl @ FreeNode (Prof_Vince).
+You can contact me by mail or on #perl @ FreeNode (vincent or Prof_Vince).
 
 =head1 BUGS
 
@@ -150,7 +160,7 @@ You can find documentation for this module with the perldoc command.
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2007 Vincent Pit, all rights reserved.
+Copyright 2007-2008 Vincent Pit, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

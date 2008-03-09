@@ -1,5 +1,12 @@
 Revision history for Linux-SysInfo
 
+0.09    2008-03-09 13:00 UTC
+        + Add : ':funcs' and ':consts' export tags.
+        + Doc : Copyright update.
+        + Fix : Correct dependencies listing in META.yml.
+        + Tst : Author tests overhaul.
+        + Tst : t/95-portability-files.t.
+
 0.08    2007-11-19 09:25 UTC
         + Fix : 5.10.0_RC1 compatibility fix.
 
