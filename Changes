@@ -1,5 +1,13 @@
 Revision history for Linux-SysInfo
 
+0.10    2008-03-10 15:40 UTC
+        + Doc : The usual set of POD typos.
+        + Fix : Ensure that we're on linux with $^O, as some smokers don't seem
+                to apply anymore the rule of "if it's in the Linux:: namespace,
+                then errors should be reported as FAILures only if we actually
+                are on linux".
+        + Tst : Tiny refinements.
+
 0.09    2008-03-09 13:00 UTC
         + Add : ':funcs' and ':consts' export tags.
         + Doc : Copyright update.

@@ -2,6 +2,8 @@ use strict;
 use warnings;
 use ExtUtils::MakeMaker;
 
+die 'OS unsupported' unless $^O && $^O eq 'linux';
+
 my $BUILD_REQUIRES = {
  'ExtUtils::MakeMaker' => 0,
  'Test::More'          => 0,

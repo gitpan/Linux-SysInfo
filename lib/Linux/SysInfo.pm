@@ -9,13 +9,13 @@ Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 =head1 VERSION
 
-Version 0.09
+Version 0.10
 
 =cut
 
 our $VERSION;
 BEGIN {
- $VERSION = '0.09';
+ $VERSION = '0.10';
 }
 
 =head1 SYNOPSIS
@@ -80,7 +80,7 @@ Total swap space size.
 
 =item C<freeswap>
 
-Swap space stil available.
+Swap space still available.
 
 =item C<procs>
 

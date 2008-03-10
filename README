@@ -2,7 +2,7 @@ NAME
     Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 VERSION
-    Version 0.09
+    Version 0.10
 
 SYNOPSIS
         use Linux::SysInfo qw/sysinfo/;
@@ -49,7 +49,7 @@ FUNCTIONS
         Total swap space size.
 
     "freeswap"
-        Swap space stil available.
+        Swap space still available.
 
     "procs"
         Number of current processes.
