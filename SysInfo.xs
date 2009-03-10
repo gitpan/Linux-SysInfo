@@ -10,7 +10,8 @@
 #include "perl.h"
 #include "XSUB.h"
 
-#define __PACKAGE__ "Linux::SysInfo"
+#define __PACKAGE__     "Linux::SysInfo"
+#define __PACKAGE_LEN__ (sizeof(__PACKAGE__)-1)
 
 /* --- Extended fields ----------------------------------------------------- */
 
@@ -71,7 +72,7 @@ PROTOTYPES: ENABLE
 BOOT:
 {
  HV *stash;
- stash = gv_stashpv(__PACKAGE__, TRUE);
+ stash = gv_stashpvn(__PACKAGE__, __PACKAGE_LEN__, TRUE);
  newCONSTSUB(stash, "LS_HAS_EXTENDED", newSViv(LS_HAS_EXTENDED));
 
  LS_KEY_DEFINE(uptime);
@@ -93,40 +94,39 @@ BOOT:
 }
 
 SV *sysinfo()
+PROTOTYPE:
 PREINIT:
  struct sysinfo si;
  NV l;
- HV *h;
+ HV *hv;
 CODE:
- if (sysinfo(&si) == -1) {
-  XSRETURN_UNDEF;
- }
+ if (sysinfo(&si) == -1) XSRETURN_UNDEF;
 
- h = newHV();
+ hv = newHV();
 
- LS_KEY_STORE(h, uptime,    newSViv(si.uptime));
+ LS_KEY_STORE(hv, uptime,    newSViv(si.uptime));
 
  l = ((NV) si.loads[0]) / ((NV) (((U32) 1) << ((U32) SI_LOAD_SHIFT)));
- LS_KEY_STORE(h, load1,     newSVnv(l));
+ LS_KEY_STORE(hv, load1,     newSVnv(l));
  l = ((NV) si.loads[1]) / ((NV) (((U32) 1) << ((U32) SI_LOAD_SHIFT)));
- LS_KEY_STORE(h, load5,     newSVnv(l));
+ LS_KEY_STORE(hv, load5,     newSVnv(l));
  l = ((NV) si.loads[2]) / ((NV) (((U32) 1) << ((U32) SI_LOAD_SHIFT)));
- LS_KEY_STORE(h, load15,    newSVnv(l));
+ LS_KEY_STORE(hv, load15,    newSVnv(l));
 
- LS_KEY_STORE(h, totalram,  newSVuv(si.totalram));
- LS_KEY_STORE(h, freeram,   newSVuv(si.freeram));
- LS_KEY_STORE(h, sharedram, newSVuv(si.sharedram));
- LS_KEY_STORE(h, bufferram, newSVuv(si.bufferram));
- LS_KEY_STORE(h, totalswap, newSVuv(si.totalswap));
- LS_KEY_STORE(h, freeswap,  newSVuv(si.freeswap));
- LS_KEY_STORE(h, procs,     newSVuv(si.procs));
+ LS_KEY_STORE(hv, totalram,  newSVuv(si.totalram));
+ LS_KEY_STORE(hv, freeram,   newSVuv(si.freeram));
+ LS_KEY_STORE(hv, sharedram, newSVuv(si.sharedram));
+ LS_KEY_STORE(hv, bufferram, newSVuv(si.bufferram));
+ LS_KEY_STORE(hv, totalswap, newSVuv(si.totalswap));
+ LS_KEY_STORE(hv, freeswap,  newSVuv(si.freeswap));
+ LS_KEY_STORE(hv, procs,     newSVuv(si.procs));
 #if LS_HAS_EXTENDED
- LS_KEY_STORE(h, totalhigh, newSVuv(si.totalhigh));
- LS_KEY_STORE(h, freehigh,  newSVuv(si.freehigh));
- LS_KEY_STORE(h, mem_unit,  newSVuv(si.mem_unit));
+ LS_KEY_STORE(hv, totalhigh, newSVuv(si.totalhigh));
+ LS_KEY_STORE(hv, freehigh,  newSVuv(si.freehigh));
+ LS_KEY_STORE(hv, mem_unit,  newSVuv(si.mem_unit));
 #endif /* LS_HAS_EXTENDED */
 
- RETVAL = newRV_noinc((SV *) h);
+ RETVAL = newRV_noinc((SV *) hv);
 OUTPUT:
  RETVAL
 

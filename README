@@ -2,7 +2,7 @@ NAME
     Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 VERSION
-    Version 0.10
+    Version 0.11
 
 SYNOPSIS
         use Linux::SysInfo qw/sysinfo/;
@@ -23,49 +23,61 @@ CONSTANTS
 
 FUNCTIONS
   "sysinfo"
-    This function takes no argument. It returns undef on failure or a hash
-    reference whose keys are the members name of the struct sysinfo on
+    This function takes no argument. It returns "undef" on failure or a hash
+    reference whose keys are the members name of the "struct sysinfo" on
     success :
 
-    "uptime"
+    *   "uptime"
+
         Seconds elapsed since the system booted.
 
-    "load1", "load5", "load15"
+    *   "load1", "load5", "load15"
+
         1, 5 and 15 minutes load average.
 
-    "totalram"
+    *   "totalram"
+
         Total usable main memory size.
 
-    "freeram"
+    *   "freeram"
+
         Available memory size.
 
-    "sharedram"
+    *   "sharedram"
+
         Amount of shared memory.
 
-    "bufferram"
+    *   "bufferram"
+
         Memory used by buffers.
 
-    "totalswap"
+    *   "totalswap"
+
         Total swap space size.
 
-    "freeswap"
+    *   "freeswap"
+
         Swap space still available.
 
-    "procs"
+    *   "procs"
+
         Number of current processes.
 
     Prior to Linux 2.3.23 on i386 and 2.3.48 on all other architectures, the
     memory sizes were given in bytes. Since then, the following members are
     also available and all the memory sizes are given as multiples of
-    mem_unit bytes :
+    "mem_unit" bytes :
 
-    "totalhigh"
+    *   "totalhigh"
+
         Total high memory size.
 
-    "freehigh"
+    *   "freehigh"
+
         Available high memory size.
 
-    "mem_unit"
+    *   "mem_unit"
+
         Memory unit size in bytes.
 
 EXPORT
@@ -82,6 +94,9 @@ BINARY COMPATIBILITY
     version, you will also need to recompile the module if you upgrade your
     perl from a version earlier than 5.6.
 
+DEPENDENCIES
+    perl 5.6.
+
 SEE ALSO
     The sysinfo(2) man page.
 
@@ -95,8 +110,7 @@ SEE ALSO
 AUTHOR
     Vincent Pit, "<perl at profvince.com>", <http://www.profvince.com>.
 
-    You can contact me by mail or on #perl @ FreeNode (vincent or
-    Prof_Vince).
+    You can contact me by mail or on "irc.perl.org" (vincent).
 
 BUGS
     Please report any bugs or feature requests to "bug-linux-sysinfo at
@@ -110,8 +124,11 @@ SUPPORT
 
         perldoc Linux::SysInfo
 
+    Tests code coverage report is available at
+    <http://www.profvince.com/perl/cover/Linux-SysInfo>.
+
 COPYRIGHT & LICENSE
-    Copyright 2007-2008 Vincent Pit, all rights reserved.
+    Copyright 2007-2009 Vincent Pit, all rights reserved.
 
     This program is free software; you can redistribute it and/or modify it
     under the same terms as Perl itself.

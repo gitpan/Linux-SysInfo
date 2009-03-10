@@ -1,5 +1,11 @@
 Revision history for Linux-SysInfo
 
+0.11    2009-03-10 16:25 UTC
+        + Chg : Perl 5.6 is required.
+        + Doc : Some formatting cleanup.
+        + Tst : Check that the returned values look like numbers.
+        + Upd : META.yml spec updated to 1.4.
+
 0.10    2008-03-10 15:40 UTC
         + Doc : The usual set of POD typos.
         + Fix : Ensure that we're on linux with $^O, as some smokers don't seem

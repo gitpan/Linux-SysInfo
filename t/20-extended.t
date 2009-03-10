@@ -12,10 +12,21 @@ unless (LS_HAS_EXTENDED) {
 } else {
  plan tests => 4 * 5;
 
- for (1 .. 5) {
-  my $si = sysinfo;
-  ok(defined $si);
+ SKIP: {
+  for my $run (0 .. 4) {
+   my $si = sysinfo;
+   skip 'system error (sysinfo returned undef)' => (5 - $run) * 4
+                                                             unless defined $si;
+   is ref($si), 'HASH', "sysinfo returns a hash reference at run $run";
 
-  ok(exists $si->{$_}) for qw/totalhigh freehigh mem_unit/;
+   for (qw/totalhigh freehigh mem_unit/) {
+    if (defined $si->{$_}) {
+     like $si->{$_}, qr/^\d+(?:\.\d+)?$/,
+                                       "key $_ looks like a number at run $run";
+    } else {
+     fail "key $_ isn't defined at run $run";
+    }
+   }
+  }
  }
 }
