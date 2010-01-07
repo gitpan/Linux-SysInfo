@@ -8,6 +8,17 @@ die 'OS unsupported' unless $^O && $^O eq 'linux';
 
 my $dist = 'Linux-SysInfo';
 
+(my $name = $dist) =~ s{-}{::}g;
+
+(my $file = $dist) =~ s{-}{/}g;
+$file = "lib/$file.pm";
+
+my %PREREQ_PM = (
+ 'Exporter' => 0,
+ 'XSLoader' => 0,
+ 'base'     => 0,
+);
+
 my %META = (
  configure_requires => {
   'ExtUtils::MakeMaker' => 0,
@@ -15,33 +26,32 @@ my %META = (
  build_requires => {
   'ExtUtils::MakeMaker' => 0,
   'Test::More'          => 0,
+  %PREREQ_PM,
  },
+ dynamic_config => 1,
  resources => {
   bugtracker => "http://rt.cpan.org/NoAuth/ReportBug.html?Queue=$dist",
   homepage   => "http://search.cpan.org/dist/$dist/",
   license    => 'http://dev.perl.org/licenses/',
-  repository => "http://git.profvince.com/perl/modules/$dist.git",
+  repository => "http://git.profvince.com/?p=perl%2Fmodules%2F$dist.git",
  },
 );
 
 WriteMakefile(
-    NAME             => 'Linux::SysInfo',
-    AUTHOR           => 'Vincent Pit <perl@profvince.com>',
-    LICENSE          => 'perl',
-    VERSION_FROM     => 'lib/Linux/SysInfo.pm',
-    ABSTRACT_FROM    => 'lib/Linux/SysInfo.pm',
-    PL_FILES         => {},
-    PREREQ_PM        => {
-        'Exporter' => 0,
-        'XSLoader' => 0,
-    },
-    MIN_PERL_VERSION => 5.006,
-    META_MERGE       => \%META,
-    dist             => {
-        PREOP    => 'pod2text lib/Linux/SysInfo.pm > $(DISTVNAME)/README',
-        COMPRESS => 'gzip -9f', SUFFIX => 'gz',
-    },
-    clean            => {
-        FILES => "$dist-* *.gcov *.gcda *.gcno cover_db Debian_CPANTS.txt"
-    },
+ NAME             => $name,
+ AUTHOR           => 'Vincent Pit <perl@profvince.com>',
+ LICENSE          => 'perl',
+ VERSION_FROM     => $file,
+ ABSTRACT_FROM    => $file,
+ PL_FILES         => {},
+ PREREQ_PM        => \%PREREQ_PM,
+ MIN_PERL_VERSION => 5.006,
+ META_MERGE       => \%META,
+ dist             => {
+  PREOP    => "pod2text $file > \$(DISTVNAME)/README",
+  COMPRESS => 'gzip -9f', SUFFIX => 'gz',
+ },
+ clean            => {
+  FILES => "$dist-* *.gcov *.gcda *.gcno cover_db Debian_CPANTS.txt"
+ },
 );

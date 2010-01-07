@@ -10,14 +10,15 @@ use Linux::SysInfo qw/sysinfo LS_HAS_EXTENDED/;
 unless (LS_HAS_EXTENDED) {
  plan skip_all => 'your kernel does not support extended sysinfo fields';
 } else {
- plan tests => 4 * 5;
+ plan tests => 5 * 5;
 
  SKIP: {
   for my $run (0 .. 4) {
    my $si = sysinfo;
-   skip 'system error (sysinfo returned undef)' => (5 - $run) * 4
+   skip 'system error (sysinfo returned undef)' => (5 - $run) * 5
                                                              unless defined $si;
    is ref($si), 'HASH', "sysinfo returns a hash reference at run $run";
+   is scalar(keys %$si), 14, "sysinfo object has the right number of keys at run $run";
 
    for (qw/totalhigh freehigh mem_unit/) {
     if (defined $si->{$_}) {
