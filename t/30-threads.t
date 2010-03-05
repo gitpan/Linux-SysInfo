@@ -6,16 +6,19 @@ use warnings;
 use Config qw/%Config/;
 
 BEGIN {
- if (!$Config{useithreads}) {
-  require Test::More;
-  Test::More->import; 
+ my $has_threads = do {
+  local $@;
+  $Config{useithreads} and eval "use threads; 1";
+ };
+ # Load Test::More after threads
+ require Test::More;
+ Test::More->import;
+ if ($has_threads) {
+  plan(tests => 4 * 10);
+ } else {
   plan(skip_all => 'This perl wasn\'t built to support threads');
  }
 }
-
-use threads;
-
-use Test::More tests => 4 * 10;
 
 use Linux::SysInfo qw/sysinfo/;
 

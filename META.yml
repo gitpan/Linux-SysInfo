@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Linux-SysInfo
-version:            0.12
+version:            0.13
 abstract:           Perl interface to the sysinfo(2) Linux system call.
 author:
     - Vincent Pit <perl@profvince.com>

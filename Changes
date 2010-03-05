@@ -1,5 +1,10 @@
 Revision history for Linux-SysInfo
 
+0.13    2010-03-05 22:50 UTC
+        + Fix : t/30-threads.t will not be correctly skipped for perls with
+                ithreads but without threads.pm. Thanks David Cantrell for
+                providing access to a machine with such a perl.
+
 0.12    2010-01-07 17:50 UTC
         + Fix : Work around Kwalitee test misfailures.
         + Tst : Test thread safety.
