@@ -3,24 +3,12 @@
 use strict;
 use warnings;
 
-use Config qw/%Config/;
+use lib 't/lib';
+use Linux::SysInfo::TestThreads;
 
-BEGIN {
- my $has_threads = do {
-  local $@;
-  $Config{useithreads} and eval "use threads; 1";
- };
- # Load Test::More after threads
- require Test::More;
- Test::More->import;
- if ($has_threads) {
-  plan(tests => 4 * 10);
- } else {
-  plan(skip_all => 'This perl wasn\'t built to support threads');
- }
-}
+use Test::More 'no_plan';
 
-use Linux::SysInfo qw/sysinfo/;
+use Linux::SysInfo qw<sysinfo>;
 
 sub try {
  my $tid = threads->tid();
@@ -40,5 +28,8 @@ sub try {
  }
 }
 
-my @t = map { threads->create(\&try, $_) } 1 .. 10;
-$_->join for @t;
+my @threads = map spawn(\&try, $_), 1 .. 10;
+
+$_->join for @threads;
+
+pass 'done';

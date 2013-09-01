@@ -1,5 +1,7 @@
 package Linux::SysInfo;
 
+use 5.006;
+
 use strict;
 use warnings;
 
@@ -9,18 +11,18 @@ Linux::SysInfo - Perl interface to the sysinfo(2) Linux system call.
 
 =head1 VERSION
 
-Version 0.13
+Version 0.14
 
 =cut
 
 our $VERSION;
 BEGIN {
- $VERSION = '0.13';
+ $VERSION = '0.14';
 }
 
 =head1 SYNOPSIS
 
-    use Linux::SysInfo qw/sysinfo/;
+    use Linux::SysInfo qw<sysinfo>;
 
     my $si = sysinfo;
     print "$_: $si->{$_}\n" for keys %$si;
@@ -141,12 +143,12 @@ Functions are also exported by the C<:funcs> tag, and constants by C<:consts>.
 
 =cut
 
-use base qw/Exporter/;
+use base qw<Exporter>;
 
 our @EXPORT         = ();
 our %EXPORT_TAGS    = (
- 'funcs'  => [ qw/sysinfo/ ],
- 'consts' => [ qw/LS_HAS_EXTENDED/ ]
+ 'funcs'  => [ qw<sysinfo> ],
+ 'consts' => [ qw<LS_HAS_EXTENDED> ]
 );
 our @EXPORT_OK      = map { @$_ } values %EXPORT_TAGS;
 $EXPORT_TAGS{'all'} = [ @EXPORT_OK ];
@@ -160,6 +162,9 @@ Moreover, since the perl hash function has changed after the 5.6 version, you wi
 =head1 DEPENDENCIES
 
 L<perl> 5.6.
+
+A C compiler.
+This module may happen to build with a C++ compiler as well, but don't rely on it, as no guarantee is made in this regard.
 
 =head1 SEE ALSO
 
@@ -192,7 +197,7 @@ Tests code coverage report is available at L<http://www.profvince.com/perl/cover
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2007,2008,2009,2010 Vincent Pit, all rights reserved.
+Copyright 2007,2008,2009,2010,2013 Vincent Pit, all rights reserved.
 
 This program is free software; you can redistribute it and/or modify it
 under the same terms as Perl itself.

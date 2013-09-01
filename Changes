@@ -1,5 +1,13 @@
 Revision history for Linux-SysInfo
 
+0.14    2013-09-01 15:20 UTC
+        This is a maintenance release. The code contains no functional change.
+        Satisfied users of version 0.13 can skip this update.
+        + Tst : Author tests are no longer bundled with this distribution.
+                They are only made available to authors in the git repository.
+        + Tst : Threads tests will not fail anymore if resources constraints
+                prevent the system from creating all the required threads.
+
 0.13    2010-03-05 22:50 UTC
         + Fix : t/30-threads.t will not be correctly skipped for perls with
                 ithreads but without threads.pm. Thanks David Cantrell for
@@ -42,22 +50,22 @@ Revision history for Linux-SysInfo
 
 0.05    2007-08-13 11:10 UTC
         + Add : Kwalitee test.
-	+ Chg : Makefile.PL overhaul.
+        + Chg : Makefile.PL overhaul.
         + Chg : Hash keys are now shared. This new implementation doesn't like
                 5.9.3, but seems to be somehow ok with 5.9.5. If you're using
                 5.9.3, either upgrade or keep with the precedent module version.
 
-0.04	2007-05-03 09:35 UTC
-	+ Add : The samples/sysinfo.pl sample script.
-	+ Chg : Declare LS_HAS_EXTENDED with newCONSTSUB.
-	+ Fix : Missing LICENSE in Makefile.PL
-	+ Fix : Skipping extended tests will now display the good reason.
+0.04    2007-05-03 09:35 UTC
+        + Add : The samples/sysinfo.pl sample script.
+        + Chg : Declare LS_HAS_EXTENDED with newCONSTSUB.
+        + Fix : Missing LICENSE in Makefile.PL
+        + Fix : Skipping extended tests will now display the good reason.
 
-0.03	2007-04-18 10:25 UTC
-	+ Fix : Load average raw values have to be shifted on a platform
-	        dependant way. They are now correctly reported.
-	+ Fix : Missing META.yml
-	+ Doc : Information about binary compatibility.
+0.03    2007-04-18 10:25 UTC
+        + Fix : Load average raw values have to be shifted on a platform
+                dependant way. They are now correctly reported.
+        + Fix : Missing META.yml
+        + Doc : Information about binary compatibility.
 
 0.01    2007-04-11 12:45 UTC
         * First version, released on an unsuspecting world.

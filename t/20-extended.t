@@ -5,7 +5,7 @@ use warnings;
 
 use Test::More;
 
-use Linux::SysInfo qw/sysinfo LS_HAS_EXTENDED/;
+use Linux::SysInfo qw<sysinfo LS_HAS_EXTENDED>;
 
 unless (LS_HAS_EXTENDED) {
  plan skip_all => 'your kernel does not support extended sysinfo fields';
@@ -20,7 +20,7 @@ unless (LS_HAS_EXTENDED) {
    is ref($si), 'HASH', "sysinfo returns a hash reference at run $run";
    is scalar(keys %$si), 14, "sysinfo object has the right number of keys at run $run";
 
-   for (qw/totalhigh freehigh mem_unit/) {
+   for (qw<totalhigh freehigh mem_unit>) {
     if (defined $si->{$_}) {
      like $si->{$_}, qr/^\d+(?:\.\d+)?$/,
                                        "key $_ looks like a number at run $run";

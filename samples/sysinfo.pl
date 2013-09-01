@@ -3,9 +3,9 @@
 use strict;
 use warnings;
 
-use lib qw{blib/lib blib/arch};
+use lib qw<blib/lib blib/arch>;
 
-use Linux::SysInfo qw/sysinfo LS_HAS_EXTENDED/;
+use Linux::SysInfo qw<sysinfo LS_HAS_EXTENDED>;
 
 my $si = sysinfo;
 die 'sysinfo() failed ! (should be pretty rare but it did happen)' unless $si;
@@ -21,5 +21,5 @@ if (LS_HAS_EXTENDED) {
  ($si->{mem_unit} == 1) ? "the memory values are the actual sizes in bytes :\n"
                         : "the sizes in bytes are actually :\n";
  print '- ', $_, ': ', $si->{$_} * $si->{mem_unit}, "\n" for sort
- qw/totalram freeram sharedram bufferram totalswap freeswap totalhigh freehigh/;
+ qw<totalram freeram sharedram bufferram totalswap freeswap totalhigh freehigh>;
 }
